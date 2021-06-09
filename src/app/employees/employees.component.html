@@ -1,1 +1,5 @@
-<p>employees works!</p>
+<ul>
+    <li *ngFor="let employee of employees" (click)="onSelect(employee)">{{employee.firstName}} {{employee.lastName}}
+    </li>
+</ul>
+<app-employee-detail [employee]="selectedEmployee"></app-employee-detail>

@@ -14,7 +14,7 @@ export const EMPLOYEES: Employee[] = [
     },
     {
         id: 2,
-        firstName: "Jaaa Jaa",
+        firstName: "Janith",
         lastName: "Maa Maa",
         dob: "10/01/1998",
         telephone: 1342057215,
@@ -25,7 +25,7 @@ export const EMPLOYEES: Employee[] = [
     },
     {
         id: 3,
-        firstName: "Jane",
+        firstName: "Jonith",
         lastName: "John",
         dob: "10/01/1999",
         telephone: 1234567890,
@@ -35,7 +35,7 @@ export const EMPLOYEES: Employee[] = [
         remark: "remark"
     }, {
         id: 4,
-        firstName: "Jane",
+        firstName: "Finith",
         lastName: "John",
         dob: "10/01/1999",
         telephone: 1342057215,
@@ -46,7 +46,7 @@ export const EMPLOYEES: Employee[] = [
     }
     , {
         id: 5,
-        firstName: "Jane",
+        firstName: "Ginith",
         lastName: "John",
         dob: "10/01/1999",
         telephone: 1342057215,

@@ -1,3 +1,5 @@
+import { Employee } from './../employee';
+import { EMPLOYEES } from './../mock-employees';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeesComponent implements OnInit {
 
+  selectedEmployee?: Employee;
+  employees = EMPLOYEES;
+
+
   constructor() { }
 
   ngOnInit(): void {
+
   }
+
+  onSelect(employee: Employee) {
+    console.log(`${employee.id} clicked`);
+    this.selectedEmployee = employee;
+  }
+
+
 
 }
