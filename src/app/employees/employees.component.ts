@@ -1,3 +1,4 @@
+import { EmployeeService } from './../employee.service';
 import { Employee } from './../employee';
 import { EMPLOYEES } from './../mock-employees';
 import { Component, OnInit } from '@angular/core';
@@ -10,20 +11,17 @@ import { Component, OnInit } from '@angular/core';
 export class EmployeesComponent implements OnInit {
 
   selectedEmployee?: Employee;
-  employees = EMPLOYEES;
+  employees: Employee[] = [];
 
 
-  constructor() { }
+  constructor(private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
+    this.getEmployees();
 
   }
 
-  onSelect(employee: Employee) {
-    console.log(`${employee.id} clicked`);
-    this.selectedEmployee = employee;
+  getEmployees() {
+    this.employeeService.getEmployees().subscribe(employees => this.employees = employees);
   }
-
-
-
 }

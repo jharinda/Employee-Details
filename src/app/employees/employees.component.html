@@ -1,5 +1,8 @@
 <ul>
-    <li *ngFor="let employee of employees" (click)="onSelect(employee)">{{employee.firstName}} {{employee.lastName}}
+    <li *ngFor="let employee of employees">
+        {{employee.firstName}} {{employee.lastName}}
+        <button><a routerLink="/detail/{{employee.id}}">Edit</a>
+        </button><button>Delete</button>
     </li>
 </ul>
 <app-employee-detail [employee]="selectedEmployee"></app-employee-detail>
