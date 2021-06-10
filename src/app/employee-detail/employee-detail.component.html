@@ -1,33 +1,33 @@
-<div *ngIf=employee>
+<div *ngIf="employee">
     {{employee.firstName}}'s Details
     <div>
         <!-- First Name -->
         <label for="first-name">First Name</label><br>
-        <input id="first-name" value="{{employee.firstName}}" placeholder="First Name"><br>
+        <input id="first-name" value="{{employee.firstName}}" #employeeFirstName placeholder="First Name"><br>
 
         <!-- Last Name -->
         <label for="last-name">Last Name</label><br>
-        <input id="last-name" value="{{employee.lastName}}" placeholder="Last Name"><br>
+        <input id="last-name" value="{{employee.lastName}}" #employeeSecondName placeholder="Last Name"><br>
 
         <label for="dob">Birth Date</label><br>
-        <input id="dob" value="{{employee.dob}}" placeholder="Birth Date"><br>
+        <input id="dob" value="{{employee.dob}}" #employeeDob placeholder="Birth Date"><br>
 
         <!-- Birth Date -->
         <label for="telephone">Telephone</label><br>
-        <input id="telephone" value="{{employee.telephone}}" placeholder="Telephone"><br>
+        <input id="telephone" value="{{employee.telephone}}" #employeeTelephone placeholder="Telephone"><br>
 
         <!-- Email -->
         <label for="email">Email</label><br>
-        <input id="email" value="{{employee.email}}" placeholder="Email"><br>
+        <input id="email" value="{{employee.email}}" #employeeEmail placeholder="Email"><br>
 
         <!-- Marital Status -->
         <label for="maritalStatus">Marital Status</label><br>
-        <input type="radio" name="maritalStatus" id="maritalStatus">Yes<br>
-        <input type="radio" name="maritalStatus" id="maritalStatus">No<br>
+        <input type="radio" #employeeMaritalStatus value="true" id="maritalStatus">Yes<br>
+        <input type="radio" #employeeMaritalStatus value="false" name="maritalStatus" id="maritalStatus">No<br>
 
         <!-- City -->
         <label for="city">City</label><br>
-        <select id="city" value='3'>
+        <select id="city" value="{{employee.city}}" #employeeCity>
             <option value="1">Colombo</option>
             <option value="2">Matara</option>
             <option value="3">Weligama</option>
@@ -38,9 +38,18 @@
 
         <!-- Remark -->
         <label for="remark">Remark</label><br>
-        <input id="remark" value="{{employee.remark}}"><br>
+        <input id="remark" #employeeRemark value="{{employee.remark}}"><br>
 
-        <button (click)=update()>Add</button>
+        <button (click)="update(
+            employeeFirstName.value,
+            employeeSecondName.value,
+            employeeDob.value,
+            employeeTelephone.value,
+            employeeEmail.value,
+            employeeMaritalStatus.value,
+            employeeCity.value,
+            employeeRemark.value
+        )">Add</button>
         <button (click)="goBack()">Cancel</button>
     </div>
 </div>

@@ -1,8 +1,17 @@
+<app-employee-search></app-employee-search>
+
 <ul>
     <li *ngFor="let employee of employees">
         {{employee.firstName}} {{employee.lastName}}
-        <button><a routerLink="/detail/{{employee.id}}">Edit</a>
-        </button><button>Delete</button>
+        <button>
+            <a routerLink="/detail/{{employee.id}}">Edit</a>
+        </button>
+        <button>
+            <a (click)=delete(employee)>
+                Delete
+            </a></button>
     </li>
 </ul>
-<app-employee-detail [employee]="selectedEmployee"></app-employee-detail>
+
+
+<app-employee-detail></app-employee-detail>

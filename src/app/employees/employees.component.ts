@@ -1,7 +1,9 @@
+import { MessageService } from './../message.service';
 import { EmployeeService } from './../employee.service';
 import { Employee } from './../employee';
 import { EMPLOYEES } from './../mock-employees';
 import { Component, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-employees',
@@ -14,7 +16,7 @@ export class EmployeesComponent implements OnInit {
   employees: Employee[] = [];
 
 
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private employeeService: EmployeeService, private messageSerivce: MessageService) { }
 
   ngOnInit(): void {
     this.getEmployees();
@@ -23,5 +25,44 @@ export class EmployeesComponent implements OnInit {
 
   getEmployees() {
     this.employeeService.getEmployees().subscribe(employees => this.employees = employees);
+  }
+
+  delete(employee: Employee): void {
+    this.employees = this.employees.filter(h => h !== employee);
+    this.employeeService.deleteEmployee(employee.id).subscribe();
+    this.messageSerivce.addMessage(`${employee.firstName} Deleted`);
+  }
+
+  add(employeeFirstName: string,
+    employeeSecondName: string,
+    employeeDob: string,
+    employeeTelephone: string,
+    employeeEmail: string,
+    employeeMaritalStatus: string,
+    employeeCity: string,
+    employeeRemark: string): void {
+
+    employeeFirstName = employeeFirstName.trim();
+    employeeDob = employeeDob.trim();
+    employeeTelephone = employeeTelephone.trim();
+    employeeEmail = employeeEmail.trim();
+    employeeCity = employeeCity.trim();
+    employeeRemark = employeeRemark.trim();
+
+
+    if (!employeeFirstName || !employeeFirstName || !employeeTelephone || !employeeEmail || !employeeCity || !employeeRemark) { this.messageSerivce.addMessage("Fill all blanks"); return };
+    this.employeeService.addEmployee({
+      firstName: employeeFirstName,
+      lastName: employeeSecondName,
+      dob: employeeDob,
+      telephone: 1174582639,
+      email: employeeEmail,
+      maritalStatus: true,
+      city: 1,
+      remark: employeeRemark
+    } as Employee).subscribe(employee => {
+      this.employees.push(employee);
+    });
+    this.messageSerivce.addMessage(`${employeeFirstName} Added`);
   }
 }
