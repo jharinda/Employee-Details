@@ -1,17 +1,36 @@
-<app-employee-search></app-employee-search>
+<div class="all-container">
+    <div class="title">All Employees </div>
+    <app-employee-search></app-employee-search>
+    <div class="container">
+        <div class="emp-container">
 
-<ul>
-    <li *ngFor="let employee of employees">
-        {{employee.firstName}} {{employee.lastName}}
-        <button>
-            <a routerLink="/detail/{{employee.id}}">Edit</a>
-        </button>
-        <button>
-            <a (click)=delete(employee)>
-                Delete
-            </a></button>
-    </li>
-</ul>
+            <div class="emp-card">
+                <table>
+                    <tr *ngFor="let employee of employees">
+                        <div>
+                            <td id="emp-name">
+                                {{employee.firstName}} {{employee.lastName}}
+                            </td>
 
+                            <td><button id="editBtn" onclick="location.href()">
+                                    <a routerLink="/detail/{{employee.id}}">Edit</a>
+                                </button>
 
-<app-employee-detail></app-employee-detail>
+                            </td>
+                            <td>
+                                <button id="deleteBtn">
+                                    <a (click)=delete(employee)>Delete</a>
+                                </button>
+
+                            </td>
+                        </div>
+
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

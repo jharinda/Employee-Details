@@ -1,61 +1,101 @@
-<div>
-    <!-- <label for="new-employee">Employee name: </label>
-    <input id="new-employee" #employeeFirstName /> -->
+<div class="container">
+    <div class="title">Register Employee</div>
 
-    <!-- First Name -->
-    <label for="first-name">First Name</label><br>
-    <input id="first-name" #employeeFirstName placeholder="First Name"><br>
+    <div>
+        <div class="card-container">
+            <div class="cards">
+                <!-- First Name -->
+                <label for="first-name">First Name</label><br>
+                <input id="first-name" #employeeFirstName placeholder="First Name"><br>
 
-    <!-- Last Name -->
-    <label for="last-name">Last Name</label><br>
-    <input id="last-name" #employeeSecondName placeholder="Last Name"><br>
+            </div>
 
-    <!-- Birth Date -->
-    <label for="dob">Birth Date</label><br>
-    <input id="dob " #employeeDob placeholder="DD/MM/YYYY"><br>
+            <div class="cards">
+                <!-- Last Name -->
+                <label for="last-name">Last Name</label><br>
+                <input id="last-name" #employeeSecondName placeholder="Last Name"><br>
 
-    <label for="telephone">Telephone</label><br>
-    <input id="telephone" #employeeTelephone placeholder="Telephone"><br>
+            </div>
 
-    <!-- Email -->
-    <label for="email">Email</label><br>
-    <input id="email" #employeeEmail placeholder="Email"><br>
+            <div class="cards">
+                <!-- Birth Date -->
+                <!-- <label for="dob">Birth Date</label><br>
+                <input id="dob " #employeeDob placeholder="DD/MM/YYYY"><br> -->
 
-    <!-- Marital Status -->
-    <label for="maritalStatus">Marital Status</label><br>
-    <input type="radio" name="maritalStatus" #employeeMaritalStatus (click)="employeeMaritalStatus.value='true'"
-        id="maritalStatus">Yes<br>
-    <input type="radio" name="maritalStatus" #employeeMaritalStatus (click)="employeeMaritalStatus.value='false'"
-        id="maritalStatus">No<br>
+                <input type="date" id="start" name="trip-start" #employeeDob value="" min="1950-01-01" max="2020-01-01">
 
-    <!-- City -->
-    <label for="city">City</label><br>
-    <select id="city" #employeeCity>
-        <option value="1">Colombo</option>
-        <option value="2">Matara</option>
-        <option value="3">Weligama</option>
-        <option value="4">Galle</option>
-        <option value="5">Jaffna</option>
-    </select>
-    <br>
+            </div>
 
-    <!-- Remark -->
-    <label for="remark">Remark</label><br>
-    <input id="remark" #employeeRemark><br>
+            <div class="cards">
+                <label for="telephone">Telephone</label><br>
+                <input id="telephone" #employeeTelephone placeholder="Telephone"><br>
 
+            </div>
 
-    <button class="add-button" (click)="add(
-        employeeFirstName.value,
-        employeeSecondName.value,
-        employeeDob.value,
-        employeeTelephone.value,
-        employeeEmail.value,
-        employeeMaritalStatus.value,
-        employeeCity.value,
-        employeeRemark.value
-    ); employeeFirstName.value=''">
-        Add employee
-    </button>
-    <button (click)="goBack()">Back</button>
+            <div class="cards">
+                <!-- Email -->
+                <label for="email">Email</label><br>
+                <input id="email" #employeeEmail placeholder="Email"><br>
+
+            </div>
+
+            <div class="cards">
+                <!-- Marital Status -->
+                <!-- <label for="maritalStatus">Marital Status</label><br>
+                <input type="radio" name="maritalStatus" #employeeMaritalStatus
+                    (click)="employeeMaritalStatus.value='true'" id="maritalStatus">Yes<br>
+                <input type="radio" name="maritalStatus" #employeeMaritalStatus
+                    (click)="employeeMaritalStatus.value='false'" id="maritalStatus">No<br> -->
+
+                <select name="" id="" #employeeMaritalStatus>
+                    <option value="-1">Select Marital Status</option>
+                    <option value="0">Single</option>
+                    <option value="1">Married</option>
+                </select><br>
+
+            </div>
+
+            <div class="cards">
+                <!-- City -->
+                <label for="city">City</label><br>
+                <select id="city" #employeeCity>
+                    <option value="0">Select City</option>
+                    <option value="1">Colombo</option>
+                    <option value="2">Matara</option>
+                    <option value="3">Weligama</option>
+                    <option value="4">Galle</option>
+                    <option value="5">Jaffna</option>
+                </select>
+                <!-- <select id="city" #employeeCity>
+                <option *ngFor="let city of cities" value="{{city.cityId}}">{{city.cityName}} </option>
+            </select> -->
+
+            </div>
+
+            <div class="cards">
+                <!-- Remark -->
+                <label for="remark">Remark</label><br>
+                <input id="remark" #employeeRemark placeholder="Remark"><br>
+
+            </div>
+            <div class="cards buttons">
+                <button class="add-button" (click)="add(
+                    employeeFirstName.value,
+                    employeeSecondName.value,
+                    employeeDob.value,
+                    employeeTelephone.value,
+                    employeeEmail.value,
+                    employeeMaritalStatus.value,
+                    employeeCity.value,
+                    employeeRemark.value
+                    ); employeeFirstName.value=''" id="updateBtn">
+                    Add employee
+                </button>
+                <button (click)="goBack()" id="cancelBtn">Back</button>
+            </div>
+            <app-message></app-message>
+        </div>
+        <app-message></app-message>
+    </div>
 
 </div>

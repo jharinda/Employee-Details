@@ -1,4 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
 *{
-    font-family: Arial, Helvetica, sans-serif;    
+    font-family: SFMed; 
+    margin:0;
+    padding:0;
+    animation:fade-in 1000ms ease;   
 }
+
+button{
+    animation: slide-in-bottom 1200ms ease;
+}
+
+@font-face{
+    src: url(./../assets/fonts/sf-pro-med.otf);
+    font-family: "SFMed";
+}
+
+@font-face{
+    src: url(./../assets/fonts/sf-pro-thin.otf);
+    font-family: "SFThin";
+}
+
+@keyframes slide-in-bottom {
+    from{
+        transform: translateY(-50%);
+    }
+    to{
+        transform:translateY(0);
+    }
+    
+}
+
+@keyframes fade-in {
+    from
+    {
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+

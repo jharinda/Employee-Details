@@ -15,6 +15,7 @@ export class NewEmployeeComponent implements OnInit {
 
   selectedEmployee?: Employee;
   employees: Employee[] = [];
+  cities?: any;
 
   constructor(
     private employeeService: EmployeeService,
@@ -22,10 +23,21 @@ export class NewEmployeeComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit(): void {
+    this.getAllCities();
   }
 
   goBack() {
     this.location.back();
+
+  }
+
+  getAllCities() {
+    this.employeeService.getAllCities().subscribe(city => this.cities = city);
+  }
+
+  log(statement: any) {
+    console.log(statement);
+
   }
 
   add(employeeFirstName: string,
@@ -36,6 +48,7 @@ export class NewEmployeeComponent implements OnInit {
     employeeMaritalStatus: string,
     employeeCity: string,
     employeeRemark: string): void {
+
 
     employeeFirstName = employeeFirstName.trim();
     employeeDob = employeeDob.trim();
@@ -53,7 +66,7 @@ export class NewEmployeeComponent implements OnInit {
       dob: employeeDob,
       telephone: Number(employeeTelephone),
       email: employeeEmail,
-      maritalStatus: Boolean(employeeMaritalStatus),
+      maritalStatus: Number(employeeMaritalStatus),
       city: Number(employeeCity),
       remark: employeeRemark
     } as Employee).subscribe(employee => {

@@ -1,0 +1,104 @@
+*{
+    margin: 0;
+    padding:0;
+}
+.container{
+    background-color: #EFEEEE;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-container{
+    background-color: #FFFFFF;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 30px;
+    margin-bottom: 50px;
+    
+
+}
+
+input,select{
+    border: none;
+    outline: none;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left: 20px;
+    transform: translateX(-10px);
+    height: 30px;
+    border-radius: 0.5rem;
+    font-size: 17px;
+    background-color: #ECECEC;
+    width: 100%;
+}
+
+.cards{
+    
+    margin-bottom: 10px;
+    width: 80%;
+}
+
+label{
+    display: none;
+}
+.title{
+    font-size: 30px;
+    font-weight: 500;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: flex;
+    height: 20px;
+}
+
+button{
+    width: 100px;
+    height: 45px;
+    border: none;
+    outline: none;
+    color:white;
+    border-radius: 15px;
+    font-size: 17px;
+    transition: all 200ms ease;
+}
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    margin-top: 20px;
+    
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+#updateBtn{
+    background-color: #00C8BA;  
+    width: 200px;
+    
+    
+}
+#cancelBtn{
+    background-color: #FF4A4A;
+    
+}
+#deleteBtn{
+    background-color: rgb(251, 17, 17);
+}
+
+button a{
+    color: white;
+}
+
+select{
+    height: 50px;
+    width: 345px;
+}

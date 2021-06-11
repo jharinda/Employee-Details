@@ -1,3 +1,4 @@
+import { SharedService } from './../shared.service';
 import { MessageService } from './../message.service';
 import { EmployeeService } from './../employee.service';
 import { Employee } from './../employee';
@@ -15,16 +16,30 @@ export class EmployeesComponent implements OnInit {
   selectedEmployee?: Employee;
   employees: Employee[] = [];
 
-
-  constructor(private employeeService: EmployeeService, private messageSerivce: MessageService) { }
+  constructor(
+    private employeeService: EmployeeService,
+    private messageSerivce: MessageService,
+    private sharedService: SharedService) { }
 
   ngOnInit(): void {
     this.getEmployees();
+    this.getAllCities();
+
+  }
+
+  getAllCities() {
+    // this.sharedService.getEmployees().subscribe(data => {
+    //   this.employees = data;
+    // })
+
+    // console.log(this.employees);
 
   }
 
   getEmployees() {
     this.employeeService.getEmployees().subscribe(employees => this.employees = employees);
+
+
   }
 
   delete(employee: Employee): void {
@@ -57,7 +72,7 @@ export class EmployeesComponent implements OnInit {
       dob: employeeDob,
       telephone: 1174582639,
       email: employeeEmail,
-      maritalStatus: true,
+      maritalStatus: 1,
       city: 1,
       remark: employeeRemark
     } as Employee).subscribe(employee => {

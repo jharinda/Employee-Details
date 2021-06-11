@@ -8,7 +8,7 @@ export const EMPLOYEES: Employee[] = [
         dob: "10/01/1999",
         telephone: 1342057215,
         email: "jaanit@gmail.com",
-        maritalStatus: true,
+        maritalStatus: 1,
         city: 1,
         remark: "remark"
     },
@@ -19,7 +19,7 @@ export const EMPLOYEES: Employee[] = [
         dob: "10/01/1998",
         telephone: 1342057215,
         email: "jaansdfit@gmail.com",
-        maritalStatus: true,
+        maritalStatus: 1,
         city: 2,
         remark: "rk"
     },
@@ -30,7 +30,7 @@ export const EMPLOYEES: Employee[] = [
         dob: "10/01/1999",
         telephone: 1234567890,
         email: "jaanit@gmail.com",
-        maritalStatus: false,
+        maritalStatus: 0,
         city: 2,
         remark: "remark"
     }, {
@@ -40,7 +40,7 @@ export const EMPLOYEES: Employee[] = [
         dob: "10/01/1999",
         telephone: 1342057215,
         email: "jaanit@gmail.com",
-        maritalStatus: true,
+        maritalStatus: 1,
         city: 1,
         remark: "remark"
     }
@@ -51,7 +51,7 @@ export const EMPLOYEES: Employee[] = [
         dob: "10/01/1999",
         telephone: 1342057215,
         email: "jaanit@gmail.com",
-        maritalStatus: true,
+        maritalStatus: 1,
         city: 1,
         remark: "remark"
     }

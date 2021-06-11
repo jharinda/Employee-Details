@@ -5,7 +5,7 @@ export interface Employee {
     dob: string,
     telephone: number,
     email: string,
-    maritalStatus: boolean,
+    maritalStatus: number,
     city: number,
     remark: string
 }
