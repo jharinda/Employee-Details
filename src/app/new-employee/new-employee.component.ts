@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { EmployeeService } from './../employee.service';
 import { MessageService } from './../message.service';
@@ -13,17 +14,38 @@ import { Employee } from './../employee';
 })
 export class NewEmployeeComponent implements OnInit {
 
+  isUpdate: boolean = false;
   selectedEmployee?: Employee;
   employees: Employee[] = [];
+  employee: Employee = {
+    id: 0,
+    firstName: '',
+    lastName: '',
+    dob: '',
+    telephone: 0,
+    email: '',
+    maritalStatus: -1,
+    city: 0,
+    remark: ''
+
+  };
   cities?: any;
 
   constructor(
     private employeeService: EmployeeService,
     public messageService: MessageService,
-    private location: Location) { }
+    private location: Location,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.getAllCities();
+    this.getAllEmployees();
+    this.getEmployee(this.getRouteId());
+  }
+
+  getRouteId() {
+    return (Number(this.route.snapshot.paramMap.get('id')));
   }
 
   goBack() {
@@ -31,13 +53,43 @@ export class NewEmployeeComponent implements OnInit {
 
   }
 
+  getAllEmployees() {
+    this.employeeService.getEmployees().subscribe(employees => this.employees = employees);
+
+  }
+
+  getEmployee(id: number) {
+
+    if (this.getRouteId()) {
+      this.employeeService.getEmployee(id).subscribe(employee => {
+        this.employee = employee[0];
+        this.employee.dob = this.employee.dob.split("T")[0];
+        this.employee.id = id;
+        this.isUpdate = true;
+      }
+
+      )
+    }
+
+  }
+
   getAllCities() {
     this.employeeService.getAllCities().subscribe(city => this.cities = city);
   }
 
-  log(statement: any) {
-    console.log(statement);
+  delete() {
+    this.employeeService.deleteEmployee(this.getRouteId()).subscribe(
+      res => {
+        this.messageService.addMessage("Deleted");
+        this.getAllEmployees();
+        this.location.go('/detail/');
+      },
+      err => {
+        console.log(err);
+        this.getAllEmployees();
+        this.messageService.addMessage("Error");
 
+      })
   }
 
   add(employeeFirstName: string,
@@ -50,29 +102,60 @@ export class NewEmployeeComponent implements OnInit {
     employeeRemark: string): void {
 
 
-    employeeFirstName = employeeFirstName.trim();
-    employeeDob = employeeDob.trim();
-    employeeTelephone = employeeTelephone.trim();
-    employeeEmail = employeeEmail.trim();
-    employeeCity = employeeCity.trim();
-    employeeRemark = employeeRemark.trim();
+    this.employee.firstName = employeeFirstName.trim();
+    this.employee.lastName = employeeSecondName.trim();
+    this.employee.dob = employeeDob.trim();
+    this.employee.telephone = Number(employeeTelephone.trim());
+    this.employee.email = employeeEmail.trim();
+    this.employee.city = Number(employeeCity);
+    this.employee.maritalStatus = Number(employeeMaritalStatus);
+
+    this.employee.remark = employeeRemark.trim();
+
+    console.log("add");
 
 
+
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    //NO EMPTY SPACE
     if (!employeeFirstName || !employeeFirstName || !employeeTelephone || !employeeEmail || !employeeCity || !employeeRemark) { this.messageService.addMessage("Fill all blanks"); return };
+    //INVALID EMAIL
+    if (!re.test(String(employeeEmail).toLowerCase())) { this.messageService.addMessage("Invaild Email"); return; }
+    //TELEPHONE
+    //if (String(this.employee.telephone).length != 10) { this.messageService.addMessage("Invaild Telephone"); return; }
 
-    this.employeeService.addEmployee({
-      firstName: employeeFirstName,
-      lastName: employeeSecondName,
-      dob: employeeDob,
-      telephone: Number(employeeTelephone),
-      email: employeeEmail,
-      maritalStatus: Number(employeeMaritalStatus),
-      city: Number(employeeCity),
-      remark: employeeRemark
-    } as Employee).subscribe(employee => {
-      this.employees.push(employee);
-    });
-    this.messageService.addMessage(`${employeeFirstName} Added`);
+    //MARITAL STATUS
+    if (this.employee.maritalStatus <= -1) { this.messageService.addMessage("Select marital Status"); return; }
+
+
+    //CITY
+    if (this.employee.city <= 0) { this.messageService.addMessage("Select a City"); return; }
+
+    if (!this.route.snapshot.paramMap.get('id')) {
+      console.log("register");
+
+      this.employeeService.addEmployee(this.employee).subscribe(employee => {
+        this.employees.push(employee);
+        this.getAllEmployees();
+        this.messageService.addMessage(`${employeeFirstName} Added`);
+      },
+        err => {
+          this.messageService.addMessage('Error occured');
+          console.log(err)
+        });
+    } else {
+      this.employee.id = Number(this.route.snapshot.paramMap.get('id'));
+
+      this.employeeService.updateEmployee(this.employee, this.employee.id).subscribe(res => {
+        this.messageService.addMessage(`${employeeFirstName} Updated`);
+        this.getAllEmployees();
+      }, err => { console.log(err) })
+    }
+
+
+
+
   }
 
 }

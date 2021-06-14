@@ -36,7 +36,10 @@ export class EmployeeDetailComponent implements OnInit {
   getEmployee(): void {
     let id = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.employeeService.getEmployee(id).subscribe(employee => this.employee = employee[0])
+    this.employeeService.getEmployee(id).subscribe(employee => {
+      employee[0].dob = employee[0].dob.split("T")[0];
+      this.employee = employee[0];
+    })
 
 
   }
@@ -86,6 +89,7 @@ export class EmployeeDetailComponent implements OnInit {
 
       if (this.employee.maritalStatus == -1) {
         this.messageService.addMessage("Enter Marital Status");
+
         return;
       }
 

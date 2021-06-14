@@ -14,6 +14,7 @@ export class EmployeeService {
 
   //private employeeUrl = "api/employees";
   private employeeUrl = "http://localhost:5000/api/employees";
+  employees$!: Observable<Employee[]>;
 
 
   httpOptions = {
@@ -72,6 +73,7 @@ export class EmployeeService {
     //   catchError(this.handleError<Employee>(`getHero id=${id}`))
     // )
     return this.sharedService.getEmployee(id).pipe(
+      tap(_ => console.log("Got emp")),
       catchError(this.handleError<Employee>(`getHero id=${id}`))
     )
   }
@@ -85,7 +87,7 @@ export class EmployeeService {
 
     return this.sharedService.updateEmployee(employee, id).pipe(
       tap(_ => console.log("Sucess update")),
-      catchError(this.handleError<any>('updateHero'))
+      catchError(this.handleError<any>('update Employee'))
     )
 
 

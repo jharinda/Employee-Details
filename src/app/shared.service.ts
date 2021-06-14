@@ -23,8 +23,7 @@ export class SharedService {
     return this.http.get<any>(this.APIUrl);
   }
 
-  getEmployee(val: any): Observable<any[]> {
-    let test;
+  getEmployee(val: any): Observable<any> {
 
 
     return this.http.get<any>(this.APIUrl + "/" + val);

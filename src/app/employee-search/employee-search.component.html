@@ -10,7 +10,7 @@
     </select>
     <div>
         <ul>
-            <li *ngFor="let employee of employees$ |async">
+            <li *ngFor="let employee of this.employeeService.employees$ |async">
                 <a routerLink="/detail/{{employee.id}}">{{employee.firstName}} {{employee.lastName}} </a>
             </li>
         </ul>

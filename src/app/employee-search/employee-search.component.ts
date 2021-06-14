@@ -11,15 +11,15 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 })
 export class EmployeeSearchComponent implements OnInit {
 
-  employees$!: Observable<Employee[]>;
+  //employees$!: Observable<Employee[]>;
   private searchTerms = new Subject<string>();
 
 
-  constructor(private employeeService: EmployeeService) { }
+  constructor(public employeeService: EmployeeService) { }
 
   ngOnInit(): void {
 
-    this.employees$ = this.searchTerms.pipe(
+    this.employeeService.employees$ = this.searchTerms.pipe(
       debounceTime(0),
       distinctUntilChanged(),
       switchMap((term: string) => this.employeeService.searchEmployees(term))

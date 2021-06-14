@@ -46,7 +46,8 @@ input,select{
 }
 
 label{
-    display: none;
+     /* display: none;  */
+     color: grey;
 }
 .title{
     font-size: 30px;

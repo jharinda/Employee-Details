@@ -1,85 +1,141 @@
 <div class="container">
     <div class="title">Register Employee</div>
+    <div class="row">
 
-    <div>
-        <div class="card-container">
-            <div class="cards">
-                <!-- First Name -->
-                <label for="first-name">First Name</label><br>
-                <input id="first-name" #employeeFirstName placeholder="First Name"><br>
+        <div class="employee-list-container">
+            <table>
+                <tr id="table-header">
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Birth Day</th>
+                    <th class="email-col">Email</th>
+                    <th>Marital Status</th>
+                    <th>City</th>
+                    <th>Remark</th>
+                    <th>Telephone</th>
+                </tr>
 
-            </div>
 
-            <div class="cards">
-                <!-- Last Name -->
-                <label for="last-name">Last Name</label><br>
-                <input id="last-name" #employeeSecondName placeholder="Last Name"><br>
+                <tr *ngFor="let employee of employees" (click)="getEmployee(employee.id)"
+                    routerLink="/detail/{{employee.id}}">
 
-            </div>
+                    <td> {{employee.firstName}}</td>
+                    <td>{{employee.lastName}}</td>
+                    <td>{{employee.dob.split("T")[0]}}</td>
+                    <td id="email-col">{{employee.email}}</td>
+                    <td>{{(employee.maritalStatus > 0) ? "Married":"Single"}}</td>
+                    <td>{{employee.city}}</td>
+                    <td>{{employee.remark}}</td>
+                    <td>{{employee.telephone}}</td>
 
-            <div class="cards">
-                <!-- Birth Date -->
-                <!-- <label for="dob">Birth Date</label><br>
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="register-container">
+            <div class="card-container">
+                <div class="cards">
+                    <!-- First Name -->
+                    <label for="first-name">First Name</label><br>
+                    <input id="first-name" value="{{employee.firstName}}" #employeeFirstName
+                        placeholder="First Name"><br>
+
+                </div>
+
+                <div class="cards">
+                    <!-- Last Name -->
+                    <label for="last-name">Last Name</label><br>
+                    <input id="last-name" #employeeSecondName value="{{employee.lastName}}" placeholder="Last Name"><br>
+
+                </div>
+
+                <div class="cards">
+                    <!-- Birth Date -->
+                    <label for="dob">Birth Date</label><br>
+                    <!-- 
                 <input id="dob " #employeeDob placeholder="DD/MM/YYYY"><br> -->
 
-                <input type="date" id="start" name="trip-start" #employeeDob value="" min="1950-01-01" max="2020-01-01">
+                    <input type="date" id="start" name="trip-start" #employeeDob value="" min="1950-01-01"
+                        max="2020-01-01" value="{{employee.dob}}">
 
-            </div>
+                </div>
 
-            <div class="cards">
-                <label for="telephone">Telephone</label><br>
-                <input id="telephone" #employeeTelephone placeholder="Telephone"><br>
+                <div class="cards">
+                    <label for="telephone">Telephone</label><br>
+                    <input id="telephone" #employeeTelephone placeholder="Telephone" value="{{employee.telephone}}"><br>
 
-            </div>
+                </div>
 
-            <div class="cards">
-                <!-- Email -->
-                <label for="email">Email</label><br>
-                <input id="email" #employeeEmail placeholder="Email"><br>
+                <div class="cards">
+                    <!-- Email -->
+                    <label for="email">Email</label><br>
+                    <input id="email" #employeeEmail placeholder="Email" value="{{employee.email}}"><br>
 
-            </div>
+                </div>
 
-            <div class="cards">
-                <!-- Marital Status -->
-                <!-- <label for="maritalStatus">Marital Status</label><br>
-                <input type="radio" name="maritalStatus" #employeeMaritalStatus
+                <div class="cards">
+                    <!-- Marital Status -->
+                    <!-- 
+                    <input type="radio" name="maritalStatus" #employeeMaritalStatus
                     (click)="employeeMaritalStatus.value='true'" id="maritalStatus">Yes<br>
-                <input type="radio" name="maritalStatus" #employeeMaritalStatus
+                    <input type="radio" name="maritalStatus" #employeeMaritalStatus
                     (click)="employeeMaritalStatus.value='false'" id="maritalStatus">No<br> -->
 
-                <select name="" id="" #employeeMaritalStatus>
-                    <option value="-1">Select Marital Status</option>
-                    <option value="0">Single</option>
-                    <option value="1">Married</option>
-                </select><br>
+                    <label for="maritalStatus">Marital Status</label><br>
+                    <select name="" id="" #employeeMaritalStatus value="{{employee.maritalStatus}}">
+                        <option value="-1">Select Marital Status</option>
+                        <option value="0">Single</option>
+                        <option value="1">Married</option>
+                    </select><br>
 
-            </div>
+                </div>
 
-            <div class="cards">
-                <!-- City -->
-                <label for="city">City</label><br>
-                <select id="city" #employeeCity>
-                    <option value="0">Select City</option>
-                    <option value="1">Colombo</option>
-                    <option value="2">Matara</option>
-                    <option value="3">Weligama</option>
-                    <option value="4">Galle</option>
-                    <option value="5">Jaffna</option>
-                </select>
-                <!-- <select id="city" #employeeCity>
-                <option *ngFor="let city of cities" value="{{city.cityId}}">{{city.cityName}} </option>
-            </select> -->
+                <div class="cards">
+                    <!-- City -->
+                    <label for="city">City</label><br>
+                    <!-- <select id="city" #employeeCity value="{{employee.city}}">
+                        <option value="0">Select City</option>
+                        <option value="1">Colombo</option>
+                        <option value="2">Matara</option>
+                        <option value="3">Weligama</option>
+                        <option value="4">Galle</option>
+                        <option value="5">Jaffna</option>
+                    </select> -->
+                    <select id="city" #employeeCity value="{{employee.city}}">
+                        <option value="0">Select City</option>
+                        <option *ngFor="let city of cities;let i = index" value="{{i+1}}">{{city.cityName}} </option>
+                    </select>
 
-            </div>
+                </div>
 
-            <div class="cards">
-                <!-- Remark -->
-                <label for="remark">Remark</label><br>
-                <input id="remark" #employeeRemark placeholder="Remark"><br>
+                <div class="cards">
+                    <!-- Remark -->
+                    <label for="remark">Remark</label><br>
+                    <input id="remark" #employeeRemark value="{{employee.remark}}" placeholder="Remark"><br>
 
-            </div>
-            <div class="cards buttons">
-                <button class="add-button" (click)="add(
+                </div>
+                <div class="cards buttons">
+                    <div *ngIf="isUpdate">
+                        <button class="add-button" id="updateBtn" (click)="add(
+                            employeeFirstName.value,
+                            employeeSecondName.value,
+                            employeeDob.value,
+                            employeeTelephone.value,
+                            employeeEmail.value,
+                            employeeMaritalStatus.value,
+                            employeeCity.value,
+                            employeeRemark.value
+                            );">Update</button>
+
+                        <button id="cancelBtn" (click)="delete()" routerLink="/detail">Delete</button>
+                        <button id="register-new" routerLink="/detail">Register New</button>
+
+
+                    </div>
+
+                    <div *ngIf="!isUpdate">
+                        <button class="add-button" (click)="add(
                     employeeFirstName.value,
                     employeeSecondName.value,
                     employeeDob.value,
@@ -88,14 +144,18 @@
                     employeeMaritalStatus.value,
                     employeeCity.value,
                     employeeRemark.value
-                    ); employeeFirstName.value=''" id="updateBtn">
-                    Add employee
-                </button>
-                <button (click)="goBack()" id="cancelBtn">Back</button>
+                    );" id="updateBtn">
+                            Add employee
+                        </button>
+                        <button (click)="goBack()" id="cancelBtn">Back</button>
+                    </div>
+
+
+
+                </div>
+                <app-message></app-message>
             </div>
-            <app-message></app-message>
         </div>
-        <app-message></app-message>
     </div>
 
 </div>

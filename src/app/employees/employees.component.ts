@@ -2,9 +2,9 @@ import { SharedService } from './../shared.service';
 import { MessageService } from './../message.service';
 import { EmployeeService } from './../employee.service';
 import { Employee } from './../employee';
-import { EMPLOYEES } from './../mock-employees';
+
 import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-employees',

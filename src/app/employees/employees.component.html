@@ -1,6 +1,7 @@
 <div class="all-container">
     <div class="title">All Employees </div>
     <app-employee-search></app-employee-search>
+
     <div class="container">
         <div class="emp-container">
 
@@ -12,7 +13,7 @@
                                 {{employee.firstName}} {{employee.lastName}}
                             </td>
 
-                            <td><button id="editBtn" onclick="location.href()">
+                            <td><button id="editBtn">
                                     <a routerLink="/detail/{{employee.id}}">Edit</a>
                                 </button>
 

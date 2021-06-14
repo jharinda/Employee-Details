@@ -14,6 +14,7 @@ import { InMemoryDataService } from './in-memory-data.service';
 import { MessageComponent } from './message/message.component';
 import { NewEmployeeComponent } from './new-employee/new-employee.component';
 import { EmployeeSearchComponent } from './employee-search/employee-search.component';
+import { EmployeeListComponent } from './employee-list/employee-list.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { EmployeeSearchComponent } from './employee-search/employee-search.compo
     DashboardComponent,
     MessageComponent,
     NewEmployeeComponent,
-    EmployeeSearchComponent
+    EmployeeSearchComponent,
+    EmployeeListComponent,
+
   ],
   imports: [
     BrowserModule,
