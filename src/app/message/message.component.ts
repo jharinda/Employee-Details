@@ -8,12 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessageComponent implements OnInit {
 
-  constructor(public messageService: MessageService) {
+  constructor(public messageService: MessageService) { }
 
-  }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 
 
