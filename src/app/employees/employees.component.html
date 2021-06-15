@@ -1,36 +1,71 @@
 <div class="all-container">
     <div class="title">All Employees </div>
-    <app-employee-search></app-employee-search>
+    <div class="search-container">
+
+        <!-- <label for="search-box">City</label> -->
+
+        <select #searchBox name="" id="" (click)="search(searchBox.value)">
+            <option value="-1" (click)="isOnSearch = false">Filter By City</option>
+            <option *ngFor="let city of cities;let i = index" value="{{city.cityId}}">
+                {{city.cityName}}
+            </option>
+        </select>
+
+        <button *ngIf="isOnSearch" (click)="isOnSearch = false;searchBox.value='-1'" class="close-button">X</button>
+    </div>
 
     <div class="container">
+
         <div class="emp-container">
 
             <div class="emp-card">
                 <table>
-                    <tr *ngFor="let employee of employees">
-                        <div>
-                            <td id="emp-name">
-                                {{employee.firstName}} {{employee.lastName}}
-                            </td>
 
-                            <td><button id="editBtn">
-                                    <a routerLink="/detail/{{employee.id}}">Edit</a>
-                                </button>
+                    <div *ngIf="isOnSearch">
+                        <tr *ngFor="let employee of this.employeeService.employees$ |async">
+                            <div>
+                                <td id="emp-name">
+                                    {{employee.firstName}} {{employee.lastName}}
+                                </td>
 
-                            </td>
-                            <td>
-                                <button id="deleteBtn">
-                                    <a (click)=delete(employee)>Delete</a>
-                                </button>
+                                <td><button id="editBtn">
+                                        <a routerLink="/detail/{{employee.id}}">Edit</a>
+                                    </button>
 
-                            </td>
-                        </div>
+                                </td>
+                                <td>
+                                    <button id="deleteBtn">
+                                        <a (click)=delete(employee)>Delete</a>
+                                    </button>
 
-                    </tr>
+                                </td>
+                            </div>
+                    </div>
+                    <div *ngIf="!isOnSearch">
+
+                        <tr *ngFor="let employee of employees">
+                            <div>
+                                <td id="emp-name">
+                                    {{employee.firstName}} {{employee.lastName}}
+                                </td>
+
+                                <td><button id="editBtn">
+                                        <a routerLink="/detail/{{employee.id}}">Edit</a>
+                                    </button>
+
+                                </td>
+                                <td>
+                                    <button id="deleteBtn">
+                                        <a (click)=delete(employee)>Delete</a>
+                                    </button>
+
+                                </td>
+                            </div>
+
+                        </tr>
+                    </div>
                 </table>
-
             </div>
-
         </div>
     </div>
 

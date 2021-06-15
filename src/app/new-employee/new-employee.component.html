@@ -102,9 +102,11 @@
                         <option value="4">Galle</option>
                         <option value="5">Jaffna</option>
                     </select> -->
+
                     <select id="city" #employeeCity value="{{employee.city}}">
                         <option value="0">Select City</option>
-                        <option *ngFor="let city of cities;let i = index" value="{{i+1}}">{{city.cityName}} </option>
+                        <option *ngFor="let city of cities" value="{{city.cityId}}">{{city.cityName}}
+                        </option>
                     </select>
 
                 </div>

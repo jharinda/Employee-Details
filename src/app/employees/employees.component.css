@@ -81,4 +81,40 @@ a{
     height: 100vh;
 }
 
+.close-button{
+    color: white;
+    background-color: #ff6262;
+    border-radius: 50%;
+    width:30px ;
+    height: 30px;
+    
+    
+}
 
+input,select{
+    border-width:1px;
+    outline: none;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left: 10px;
+
+    border-radius: 0.5rem;
+    font-size: 15px;
+    background-color: #ECECEC;
+    width: max-content;
+}
+
+select{
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: rgb(226, 226, 226);
+}
+
+.search-container{
+    
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    margin-left: 20px;
+}

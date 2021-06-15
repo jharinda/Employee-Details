@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { EmployeeService } from './../employee.service';
@@ -42,6 +43,7 @@ export class NewEmployeeComponent implements OnInit {
     this.getAllCities();
     this.getAllEmployees();
     this.getEmployee(this.getRouteId());
+    this.getCityById();
   }
 
   getRouteId() {
@@ -55,6 +57,12 @@ export class NewEmployeeComponent implements OnInit {
 
   getAllEmployees() {
     this.employeeService.getEmployees().subscribe(employees => this.employees = employees);
+
+  }
+
+  getCityById() {
+    // let i = this.cities;
+    // console.log(this.cities.map(x=> (x.cityId == this.cityId) ? x));
 
   }
 
