@@ -1,5 +1,4 @@
 import { SharedService } from './shared.service';
-import { EMPLOYEES } from './mock-employees';
 import { Employee } from './employee';
 
 import { Injectable } from '@angular/core';

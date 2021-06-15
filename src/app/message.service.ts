@@ -5,8 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class MessageService {
 
-  message: string = ' ';
-
+  message: string = '';
   constructor() { }
 
   addMessage(message: string) {
@@ -16,9 +15,8 @@ export class MessageService {
     }, 4000)
   }
 
-  clearMessge() {
-    this.message = ' ';
-  }
+  clearMessge() { this.message = '' }
+
 }
 
 
