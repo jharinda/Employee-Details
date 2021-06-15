@@ -6,8 +6,6 @@ import { MessageService } from './../message.service';
 import { Component, OnInit } from '@angular/core';
 import { Employee } from './../employee';
 
-
-
 @Component({
   selector: 'app-new-employee',
   templateUrl: './new-employee.component.html',
@@ -16,8 +14,10 @@ import { Employee } from './../employee';
 export class NewEmployeeComponent implements OnInit {
 
   isUpdate: boolean = false;
-  selectedEmployee?: Employee;
+
+  cities?: any;
   employees: Employee[] = [];
+
   employee: Employee = {
     id: 0,
     firstName: '',
@@ -28,9 +28,7 @@ export class NewEmployeeComponent implements OnInit {
     maritalStatus: -1,
     city: 0,
     remark: ''
-
   };
-  cities?: any;
 
   constructor(
     private employeeService: EmployeeService,
@@ -43,46 +41,32 @@ export class NewEmployeeComponent implements OnInit {
     this.getAllCities();
     this.getAllEmployees();
     this.getEmployee(this.getRouteId());
-    this.getCityById();
-  }
-
-  getRouteId() {
-    return (Number(this.route.snapshot.paramMap.get('id')));
-  }
-
-  goBack() {
-    this.location.back();
 
   }
 
-  getAllEmployees() {
-    this.employeeService.getEmployees().subscribe(employees => this.employees = employees);
+  getRouteId() { return (Number(this.route.snapshot.paramMap.get('id'))); }
 
-  }
+  goBack() { this.location.back(); }
 
-  getCityById() {
-    // let i = this.cities;
-    // console.log(this.cities.map(x=> (x.cityId == this.cityId) ? x));
+  getAllEmployees() { this.employeeService.getEmployees().subscribe(employees => this.employees = employees); }
 
+  getAllCities() { this.employeeService.getAllCities().subscribe(city => this.cities = city); }
+
+  getCityName(id: any) {
+    for (let i = 0; i < this.cities.length; i++)
+      if (this.cities[i].cityId == id) return this.cities[i].cityName;
   }
 
   getEmployee(id: number) {
-
     if (this.getRouteId()) {
       this.employeeService.getEmployee(id).subscribe(employee => {
         this.employee = employee[0];
         this.employee.dob = this.employee.dob.split("T")[0];
         this.employee.id = id;
         this.isUpdate = true;
-      }
-
-      )
+      })
     }
 
-  }
-
-  getAllCities() {
-    this.employeeService.getAllCities().subscribe(city => this.cities = city);
   }
 
   delete() {
@@ -100,15 +84,7 @@ export class NewEmployeeComponent implements OnInit {
       })
   }
 
-  add(employeeFirstName: string,
-    employeeSecondName: string,
-    employeeDob: string,
-    employeeTelephone: string,
-    employeeEmail: string,
-    employeeMaritalStatus: string,
-    employeeCity: string,
-    employeeRemark: string): void {
-
+  add(employeeFirstName: string, employeeSecondName: string, employeeDob: string, employeeTelephone: string, employeeEmail: string, employeeMaritalStatus: string, employeeCity: string, employeeRemark: string): void {
 
     this.employee.firstName = employeeFirstName.trim();
     this.employee.lastName = employeeSecondName.trim();
@@ -117,53 +93,42 @@ export class NewEmployeeComponent implements OnInit {
     this.employee.email = employeeEmail.trim();
     this.employee.city = Number(employeeCity);
     this.employee.maritalStatus = Number(employeeMaritalStatus);
-
     this.employee.remark = employeeRemark.trim();
-
-    console.log("add");
-
-
 
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     //NO EMPTY SPACE
-    if (!employeeFirstName || !employeeFirstName || !employeeTelephone || !employeeEmail || !employeeCity || !employeeRemark) { this.messageService.addMessage("Fill all blanks"); return };
+    if (!this.employee.firstName || !this.employee.lastName || !this.employee.dob || !this.employee.telephone || !this.employee.telephone || !this.employee.email) { this.messageService.addMessage("Fill all blanks"); return };
+
     //INVALID EMAIL
     if (!re.test(String(employeeEmail).toLowerCase())) { this.messageService.addMessage("Invaild Email"); return; }
-    //TELEPHONE
-    //if (String(this.employee.telephone).length != 10) { this.messageService.addMessage("Invaild Telephone"); return; }
 
     //MARITAL STATUS
     if (this.employee.maritalStatus <= -1) { this.messageService.addMessage("Select marital Status"); return; }
 
-
     //CITY
     if (this.employee.city <= 0) { this.messageService.addMessage("Select a City"); return; }
-
-    if (!this.route.snapshot.paramMap.get('id')) {
-      console.log("register");
-
-      this.employeeService.addEmployee(this.employee).subscribe(employee => {
-        this.employees.push(employee);
-        this.getAllEmployees();
-        this.messageService.addMessage(`${employeeFirstName} Added`);
-      },
-        err => {
-          this.messageService.addMessage('Error occured');
-          console.log(err)
-        });
-    } else {
-      this.employee.id = Number(this.route.snapshot.paramMap.get('id'));
-
-      this.employeeService.updateEmployee(this.employee, this.employee.id).subscribe(res => {
-        this.messageService.addMessage(`${employeeFirstName} Updated`);
-        this.getAllEmployees();
-      }, err => { console.log(err) })
-    }
-
-
-
+    this.getRouteId() ? this.updateEmployee() : this.registerEmployee();
 
   }
 
+  updateEmployee() {
+    this.employee.id = this.getRouteId();
+    this.employeeService.updateEmployee(this.employee, this.employee.id).subscribe(res => {
+      this.messageService.addMessage(`${this.employee.firstName} Updated`);
+      this.getAllEmployees();
+    }, err => { console.log(err) })
+  }
+
+  registerEmployee() {
+    this.employeeService.addEmployee(this.employee).subscribe(employee => {
+      this.employees.push(employee);
+      this.getAllEmployees();
+      this.messageService.addMessage(`${this.employee.firstName} Added`);
+    },
+      err => {
+        this.messageService.addMessage('Error occured');
+        console.log(err)
+      });
+  }
 }

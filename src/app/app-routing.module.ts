@@ -1,6 +1,6 @@
 import { NewEmployeeComponent } from './new-employee/new-employee.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
+
 import { EmployeesComponent } from './employees/employees.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

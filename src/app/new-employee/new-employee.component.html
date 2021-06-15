@@ -1,5 +1,9 @@
 <div class="container">
-    <div class="title">Register Employee</div>
+    <div class="title">
+        <span *ngIf="!isUpdate">Register</span>
+        <span *ngIf="isUpdate">Update</span>
+        &nbsp; Employee
+    </div>
     <div class="row">
 
         <div class="employee-list-container">
@@ -24,7 +28,7 @@
                     <td>{{employee.dob.split("T")[0]}}</td>
                     <td id="email-col">{{employee.email}}</td>
                     <td>{{(employee.maritalStatus > 0) ? "Married":"Single"}}</td>
-                    <td>{{employee.city}}</td>
+                    <td>{{getCityName(employee.city)}}</td>
                     <td>{{employee.remark}}</td>
                     <td>{{employee.telephone}}</td>
 
@@ -76,12 +80,6 @@
 
                 <div class="cards">
                     <!-- Marital Status -->
-                    <!-- 
-                    <input type="radio" name="maritalStatus" #employeeMaritalStatus
-                    (click)="employeeMaritalStatus.value='true'" id="maritalStatus">Yes<br>
-                    <input type="radio" name="maritalStatus" #employeeMaritalStatus
-                    (click)="employeeMaritalStatus.value='false'" id="maritalStatus">No<br> -->
-
                     <label for="maritalStatus">Marital Status</label><br>
                     <select name="" id="" #employeeMaritalStatus value="{{employee.maritalStatus}}">
                         <option value="-1">Select Marital Status</option>
@@ -94,15 +92,6 @@
                 <div class="cards">
                     <!-- City -->
                     <label for="city">City</label><br>
-                    <!-- <select id="city" #employeeCity value="{{employee.city}}">
-                        <option value="0">Select City</option>
-                        <option value="1">Colombo</option>
-                        <option value="2">Matara</option>
-                        <option value="3">Weligama</option>
-                        <option value="4">Galle</option>
-                        <option value="5">Jaffna</option>
-                    </select> -->
-
                     <select id="city" #employeeCity value="{{employee.city}}">
                         <option value="0">Select City</option>
                         <option *ngFor="let city of cities" value="{{city.cityId}}">{{city.cityName}}

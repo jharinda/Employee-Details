@@ -70,10 +70,10 @@ button{
 }
 .buttons{
     display: flex;
-    justify-content: space-between;
+    justify-content:center;
     align-items: center;
     height: 30px;
-    margin-top: 20px;
+    margin-top: 40px;
     
 }
 
@@ -84,6 +84,7 @@ button:hover{
 #updateBtn{
     background-color: #00C8BA;  
     width: 200px;
+    margin-right: 10px;
     
     
 }
@@ -171,9 +172,13 @@ table tr:hover{
 #table-header{
     color: white;
     background-color: #00C8BA; 
+    transform: none ;
+    cursor:alias;
+  
 }
 
 #register-new{
     background-color: rgb(11, 206, 11);
-    width: 300px;
+    width: 100%;
+    margin-top: 5px;
 }
