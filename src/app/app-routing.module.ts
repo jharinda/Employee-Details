@@ -1,3 +1,4 @@
+import { CitiesComponent } from './cities/cities.component';
 import { NewEmployeeComponent } from './new-employee/new-employee.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
@@ -13,7 +14,9 @@ const routes: Routes = [
   // { path: 'detail', component: EmployeeDetailComponent },
   //{ path: 'detail/:id', component: EmployeeDetailComponent },
   { path: 'detail', component: NewEmployeeComponent },
-  { path: 'detail/:id', component: NewEmployeeComponent }
+  { path: 'detail/:id', component: NewEmployeeComponent },
+  { path: 'cities', component: CitiesComponent },
+  { path: 'cities/:id', component: CitiesComponent },
 ];
 
 @NgModule({

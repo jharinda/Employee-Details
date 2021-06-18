@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="register-container">
+
+        <form>
+            <div class="card-container">
+
+                <div class="cards">
+                    <label for="cityName">City Name</label>
+                    <input type="text" required ngModel #cityName="ngModel" id="cityName"
+                        value="{{this.currentCity.cityName}}" placeholder="City Name">
+                </div>
+
+                <div class="cards buttons">
+                    <div *ngIf="isUpdate">
+                        <button class="add-button" id="updateBtn">Update</button>
+                        <button id="cancelBtn">Back</button>
+                    </div>
+                    <div div *ngIf="!isUpdate">
+
+                        <button class="add-button" id="updateBtn">Add City</button>
+                        <button class="add-button" id="deleteBtn">Delete</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>

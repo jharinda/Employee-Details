@@ -1,0 +1,86 @@
+<div class="background">
+
+    <div class="title">
+        <h1>
+            Cities
+        </h1>
+    </div>
+    <div class="container">
+        <div class="city-list-container">
+
+            <div class="employee-list-container">
+                <table>
+                    <tr id="table-header">
+                        <th>Row No</th>
+                        <th>City ID</th>
+                        <th>City Name</th>
+
+
+                    </tr>
+
+
+                    <tr *ngFor="let city of this.cities;let i = index">
+
+                        <td>{{i+1}}</td>
+                        <td>{{city.cityId}}</td>
+                        <td>{{city.cityName}}</td>
+                        <td><button routerLink="/cities/{{city.cityId}}" (click)="editCity(city.cityId)" id="updateBtn"
+                                class="far fa-pencil-squre-o ">🖉</button></td>
+                        <td><button (click)="deleteCity(city.cityId)" class="far fa-trash-alt far-lg text-danger"
+                                id="deleteBtn"></button></td>
+
+
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+
+        <div class="city-detail-container">
+
+            <div class="register-container">
+
+                <form novalidate #form="ngForm" (submit)="onSubmit(form)">
+                    <div class="card-container">
+                        <div class="card-title" *ngIf="!isUpdate;else updateTitle">
+                            <h2> Register City </h2>
+                        </div>
+
+                        <ng-template #updateTitle class="card-title">
+                            <h2> Update City </h2>
+                        </ng-template>
+
+                        <div class="cards">
+                            <label for="cityName">City Name</label>
+                            <input type="text" required ngModel #cityName="ngModel" name="cityName"
+                                [(ngModel)]="this.currentCity.cityName" id="cityName" placeholder="City Name">
+                            <div class="error-input" *ngIf="cityName.dirty &&!cityName.valid">City name required</div>
+                        </div>
+
+                        <div class="cards buttons">
+                            <div *ngIf="isUpdate" class="update-btns">
+                                <button type="submit" class="add-button" id="updateBtn"
+                                    [disabled]="form.invalid">Update</button>
+                                <button id="cancelBtn" type="reset" (click)="this.location.back()">Cancel</button>
+                                <div class="link">
+
+                                    <a routerLink="/cities">Add a new City</a>
+                                </div>
+                            </div>
+                            <div *ngIf="!isUpdate">
+
+                                <button type="submit" class="add-button" id="updateBtn" [disabled]="form.invalid">Add
+                                    City</button>
+                                <button id="deleteBtn" type="reset" (click)="this.location.back()">Cancel</button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>

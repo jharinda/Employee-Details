@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="employee-list-container">
+        <table>
+            <tr id="table-header">
+                <th>Row No</th>
+                <th>City ID</th>
+                <th>City Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+
+            </tr>
+
+
+            <tr *ngFor="let city of this.cities;let i = index">
+
+                <td>{{i}}</td>
+                <td>{{city.cityId}}</td>
+                <td>{{city.cityName}}</td>
+                <td><button routerLink="/cities/{{city.cityId}}" id="updateBtn">Edit</button></td>
+                <td><button (click)="deleteCity(city.cityId)" id="deleteBtn">Delete</button></td>
+
+
+            </tr>
+
+        </table>
+    </div>
+</div>

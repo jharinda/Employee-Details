@@ -17,6 +17,7 @@
                     <th>City</th>
                     <th>Remark</th>
                     <th>Telephone</th>
+
                 </tr>
 
 
@@ -31,6 +32,9 @@
                     <td>{{getCityName(employee.city)}}</td>
                     <td>{{employee.remark}}</td>
                     <td>{{employee.telephone}}</td>
+                    <td class="delete-btn-row" id="delete-btn-row"><button class="far fa-trash-alt far-lg text-danger"
+                            (click)="deleteRow(employee.id)"></button>
+                    </td>
 
                 </tr>
 
@@ -38,114 +42,173 @@
         </div>
 
         <div class="register-container">
-            <div class="card-container">
-                <div class="cards">
-                    <!-- First Name -->
-                    <label for="first-name">First Name</label><br>
-                    <input id="first-name" value="{{employee.firstName}}" #employeeFirstName
-                        placeholder="First Name"><br>
 
-                </div>
+            <form autocomplete="off" novalidate #form="ngForm" (submit)="onSubmit(form)">
 
-                <div class="cards">
-                    <!-- Last Name -->
-                    <label for="last-name">Last Name</label><br>
-                    <input id="last-name" #employeeSecondName value="{{employee.lastName}}" placeholder="Last Name"><br>
+                <div class="card-container">
+                    <div class="cards">
+                        <!-- First Name -->
+                        <label for="first-name">First Name</label><br>
+                        <input required ngModel #employeeFirstName="ngModel" [(ngModel)]="employee.firstName"
+                            id="first-name" name='employeeFirstName' [value]="employee.firstName"
+                            placeholder="First Name">
 
-                </div>
-
-                <div class="cards">
-                    <!-- Birth Date -->
-                    <label for="dob">Birth Date</label><br>
-                    <!-- 
-                <input id="dob " #employeeDob placeholder="DD/MM/YYYY"><br> -->
-
-                    <input type="date" id="start" name="trip-start" #employeeDob value="" min="1950-01-01"
-                        max="2020-01-01" value="{{employee.dob}}">
-
-                </div>
-
-                <div class="cards">
-                    <label for="telephone">Telephone</label><br>
-                    <input id="telephone" #employeeTelephone placeholder="Telephone" value="{{employee.telephone}}"><br>
-
-                </div>
-
-                <div class="cards">
-                    <!-- Email -->
-                    <label for="email">Email</label><br>
-                    <input id="email" #employeeEmail placeholder="Email" value="{{employee.email}}"><br>
-
-                </div>
-
-                <div class="cards">
-                    <!-- Marital Status -->
-                    <label for="maritalStatus">Marital Status</label><br>
-                    <select name="" id="" #employeeMaritalStatus value="{{employee.maritalStatus}}">
-                        <option value="-1">Select Marital Status</option>
-                        <option value="0">Single</option>
-                        <option value="1">Married</option>
-                    </select><br>
-
-                </div>
-
-                <div class="cards">
-                    <!-- City -->
-                    <label for="city">City</label><br>
-                    <select id="city" #employeeCity value="{{employee.city}}">
-                        <option value="0">Select City</option>
-                        <option *ngFor="let city of cities" value="{{city.cityId}}">{{city.cityName}}
-                        </option>
-                    </select>
-
-                </div>
-
-                <div class="cards">
-                    <!-- Remark -->
-                    <label for="remark">Remark</label><br>
-                    <input id="remark" #employeeRemark value="{{employee.remark}}" placeholder="Remark"><br>
-
-                </div>
-                <div class="cards buttons">
-                    <div *ngIf="isUpdate">
-                        <button class="add-button" id="updateBtn" (click)="add(
-                            employeeFirstName.value,
-                            employeeSecondName.value,
-                            employeeDob.value,
-                            employeeTelephone.value,
-                            employeeEmail.value,
-                            employeeMaritalStatus.value,
-                            employeeCity.value,
-                            employeeRemark.value
-                            );">Update</button>
-
-                        <button id="cancelBtn" (click)="delete()" routerLink="/detail">Delete</button>
-                        <button id="register-new" routerLink="/detail">Register New</button>
-
+                        <div class="error-container" *ngIf="!employeeFirstName.valid && employeeFirstName.touched">
+                            <div class="error-input" *ngIf="employeeFirstName.errors?.required">First Name is required
+                            </div>
+                        </div>
 
                     </div>
 
-                    <div *ngIf="!isUpdate">
-                        <button class="add-button" (click)="add(
-                    employeeFirstName.value,
-                    employeeSecondName.value,
-                    employeeDob.value,
-                    employeeTelephone.value,
-                    employeeEmail.value,
-                    employeeMaritalStatus.value,
-                    employeeCity.value,
-                    employeeRemark.value
-                    );" id="updateBtn">
-                            Add employee
-                        </button>
-                        <button (click)="goBack()" id="cancelBtn">Back</button>
+                    <div class="cards">
+                        <!-- Last Name -->
+                        <label for="last-name">Last Name</label><br>
+                        <input id="last-name" #employeeSecondName="ngModel" [(ngModel)]="employee.lastName" ngModel
+                            name="employeeSecondName" required value="{{employee.lastName}}"
+                            placeholder="Last Name"><br>
+
+                        <div class="error-container" *ngIf="!employeeSecondName.valid && employeeSecondName.touched">
+                            <div class="error-input" *ngIf="employeeSecondName.errors?.required">Last Name is required
+                            </div>
+                        </div>
+
                     </div>
 
+                    <div class="cards">
+                        <!-- Birth Date -->
+                        <label for="dob">Birth Date</label>
+
+                        <input type="date" id="start" (change)="log(employeeDob)" name="employeeDob" ngModel
+                            #employeeDob="ngModel" [(ngModel)]="employee.dob" required value="" min="1950-01-01"
+                            maxlength="2017-01-01" value="{{employee.dob}}">
+
+                        <div class="error-container" *ngIf="!employeeDob.valid && employeeDob.touched">
+                            <div class="error-input" *ngIf="employeeDob.errors?.required">Birthdate is required</div>
+                            <div class="error-input" *ngIf="employeeDob.errors?.minlength">Error Date</div>
+                        </div>
+
+                    </div>
+
+                    <div class="cards">
+                        <label for="telephone">Telephone</label><br>
+                        <input id="telephone" ngModel #employeeTelephone="ngModel" name="employeeTelephone"
+                            placeholder="Telephone" [(ngModel)]="employee.telephone" [value]="employee.telephone"
+                            required minlength="10" maxlength="10"><br>
+                        <div class="error-container" *ngIf="!employeeTelephone.valid && employeeTelephone.touched">
+                            <div class="error-input" *ngIf="employeeTelephone.errors?.required">Telephone required</div>
+                            <div class="error-input" *ngIf="employeeTelephone.errors?.minlength">minimum length is 10
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="cards">
+                        <!-- Email -->
+                        <label for="email">Email</label><br>
+                        <input type="email" id="email" name="employeeEmail" #employeeEmail="ngModel" ngModel
+                            placeholder="Email" [(ngModel)]="employee.email" value="{{employee.email}}"><br>
+                        <div class="error-container" *ngIf="!employeeEmail.valid && employeeEmail.touched">
+                            <div class="error-input" *ngIf="employeeEmail.errors?.required">Telephone required</div>
+                            <div class="error-input" *ngIf="employeeEmail.errors?.email">minimum length is 10
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cards">
+                        <!-- Marital Status -->
+                        <label for="maritalStatus">Marital Status</label><br>
+                        <select name="" id="" #employeeMaritalStatus="ngModel" minlength="0" maxlength="1"
+                            [(ngModel)]="employee.maritalStatus" name="employeeMaritalStatus"
+                            value="{{employee.maritalStatus}}">
+                            <option value="-1">Select Marital Status</option>
+                            <option value="0">Single</option>
+                            <option value="1">Married</option>
+                        </select><br>
+
+                        <div class="error-container"
+                            *ngIf="!employeeMaritalStatus.valid && employeeMaritalStatus.touched">
+                            <div class="error-input" *ngIf="employeeMaritalStatus.errors">Select marital
+                                status
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="cards">
+                        <!-- City -->
+                        <label for="city">City</label><br>
+                        <select id="city" #employeeCity="ngModel" ngModel name="employeeCity" minlength=0
+                            value="{{employee.city}}" minlength="1" [(ngModel)]="employee.city">
+
+                            <option value="0">Select City</option>
+                            <option *ngFor="let city of cities" [value]="city.cityId">{{city.cityName}}
+                            </option>
+                        </select>
+
+                        <div class="error-container" *ngIf="!employeeCity.valid && employeeCity.touched">
+                            <div class="error-input" *ngIf="employeeCity.errors">Select City
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="cards">
+                        <!-- Remark -->
+                        <label for="remark">Remark</label><br>
+                        <input id="remark" required #employeeRemark="ngModel" ngModel name="employeeRemark"
+                            value="{{employee.remark}}" [(ngModel)]="employee.remark" placeholder="Remark"><br>
+                        <div class="error-container" *ngIf="!employeeRemark.valid && employeeRemark.touched">
+                            <div class="error-input" *ngIf="employeeRemark.errors">Remark required
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="cards buttons">
+                        <div *ngIf="isUpdate">
+                            <button type="submit" class="add-button" id="updateBtn" (click)="add(
+                                    employeeFirstName.value,
+                                    employeeSecondName.value,
+                                    employeeDob.value,
+                                    employeeTelephone.value,
+                                    employeeEmail.value,
+                                    employeeMaritalStatus.value,
+                                    employeeCity.value,
+                                    employeeRemark.value
+                                    );">Update</button>
+
+                            <button id="cancelBtn" (click)="delete()" routerLink="/detail">Delete</button>
+                            <div>
+
+                                <button id="register-new" routerLink="/detail">Register New</button>
+                            </div>
 
 
+                        </div>
+
+                        <div *ngIf="!isUpdate">
+                            <button class="add-button" (click)="add(
+                                        employeeFirstName.value,
+                                        employeeSecondName.value,
+                                        employeeDob.value,
+                                        employeeTelephone.value,
+                                        employeeEmail.value,
+                                        employeeMaritalStatus.value,
+                                        employeeCity.value,
+                                        employeeRemark.value
+                                        );" id="updateBtn">
+                                Add employee
+                            </button>
+                            <button (click)="goBack()" id="cancelBtn">Back</button>
+                        </div>
+
+
+
+                    </div>
+                    <app-message></app-message>
                 </div>
-                <app-message></app-message>
-            </div>
+            </form>
         </div>
     </div>
 

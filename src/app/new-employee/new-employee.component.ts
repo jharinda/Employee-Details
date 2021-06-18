@@ -1,3 +1,4 @@
+import { NgForm } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -84,6 +85,26 @@ export class NewEmployeeComponent implements OnInit {
       })
   }
 
+  deleteRow(id: number) {
+    this.employeeService.deleteEmployee(id).subscribe(
+      res => {
+        this.messageService.addMessage("Deleted");
+        this.getAllEmployees();
+        this.log(this.cities)
+        this.location.go('/detail/');
+      },
+      err => {
+        console.log(err);
+        this.getAllEmployees();
+        this.messageService.addMessage("Error");
+
+      })
+  }
+
+  onSubmit(form: NgForm) {
+
+  }
+
   add(employeeFirstName: string, employeeSecondName: string, employeeDob: string, employeeTelephone: string, employeeEmail: string, employeeMaritalStatus: string, employeeCity: string, employeeRemark: string): void {
 
     this.employee.firstName = employeeFirstName.trim();
@@ -130,5 +151,9 @@ export class NewEmployeeComponent implements OnInit {
         this.messageService.addMessage('Error occured');
         console.log(err)
       });
+  }
+
+  log(term: any) {
+    console.log(term);
   }
 }

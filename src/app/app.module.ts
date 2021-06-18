@@ -9,6 +9,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MessageComponent } from './message/message.component';
 import { NewEmployeeComponent } from './new-employee/new-employee.component';
+import { CitiesComponent } from './cities/cities.component';
+import { CityListComponent } from './cities/city-list/city-list.component';
+import { CityDetailComponent } from './cities/city-detail/city-detail.component';
 
 
 
@@ -19,6 +22,9 @@ import { NewEmployeeComponent } from './new-employee/new-employee.component';
     DashboardComponent,
     MessageComponent,
     NewEmployeeComponent,
+    CitiesComponent,
+    CityListComponent,
+    CityDetailComponent,
   ],
   imports: [
     BrowserModule,
